@@ -3,8 +3,11 @@ package com.bingsin.crm.dao;
 import com.bingsin.crm.po.User;
 import com.bingsin.crm.po.UserExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserMapper {
     long countByExample(UserExample example);
 
@@ -27,4 +30,14 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    /**
+     * 
+    * @Title: login 
+    * @Description: TODO(登录方法) 
+    * @param    
+    * @return UserDto    
+    * @throws
+     */
+	User login(User po);
 }

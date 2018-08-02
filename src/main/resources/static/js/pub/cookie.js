@@ -35,5 +35,13 @@ var CookieUtil = {
 	// 删除cookie
 	unset: function(name, domain, path, secure) {
 		this.set(name, "", Date(0), domain, path, secure);
+	},
+	
+	delete:function(name){
+		var exp = new Date(); 
+	    exp.setTime(exp.getTime() - 1); 
+	    var cval=CookieUtil.get(name); 
+	    if(cval!=null) 
+        	document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 	}
 };

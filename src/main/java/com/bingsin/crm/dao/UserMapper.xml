@@ -208,4 +208,9 @@
       state = #{state,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 登录方法 -->
+  <select id="login" parameterType="com.bingsin.crm.po.User" resultType="com.bingsin.crm.po.User">
+    select * from user where account = #{account} and pwd = #{pwd}
+  </select>
 </mapper>

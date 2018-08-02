@@ -45,7 +45,7 @@
 		
 		
 		<!-- 指定数据库表 -->
-		<table tableName="customer"></table>
+		<!-- <table tableName="customer"></table>
 		<table tableName="jurisdiction"></table>
 		<table tableName="order"></table>
 		<table tableName="product"></table>
@@ -53,6 +53,6 @@
 		<table tableName="role_jurisdiction"></table>
 		<table tableName="user"></table>
 		<table tableName="user_role"></table>
-		<table tableName="work_list"></table>
+		<table tableName="work_list"></table> -->
 	</context>
 </generatorConfiguration>

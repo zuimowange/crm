@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 	<head>
 		<meta charset="UTF-8">
 		<title>登录</title>
@@ -75,13 +75,13 @@
 	<body id="body">
 		<div>
 			<div class="connect">
-				<div class="connect_title">登录</div>
+				<div class="connect_title">秉信科技CRM系统</div>
 				<div>
-					<div><input placeholder="账号" /></div>
-					<div><input placeholder="密码" /></div>
+					<div><input id="account" placeholder="账号" /></div>
+					<div><input id="pwd" type="password" placeholder="密码" /></div>
 					<div class="right"><a href="user/forgetPwd" target="_blank">忘记密码</a></div>
 					<div><button id="loginBtn">登录</button></div>
-					<div class="right"><a href="user/reg" target="_blank">免费注册</a></div>
+					<!--<div class="right"><a href="user/reg" target="_blank">免费注册</a></div>-->
 				</div>
 			</div>
 		</div>
@@ -93,7 +93,7 @@
 	</script>
 	<script type="text/javascript" src="js/pub/jquery-1.8.3.min.js" ></script>
 	<script type="text/javascript" src="layui/layui.all.js" ></script>
-	<script type="text/javascript" src="js/pub/qrcode.min.js" ></script>
+	<script type="text/javascript" src="js/pub/md5.js" ></script>
 	<script type="text/javascript" src="js/pub/cookie.js" ></script>
 	<script type="text/javascript" src="js/user/login.js" ></script>
 </html>

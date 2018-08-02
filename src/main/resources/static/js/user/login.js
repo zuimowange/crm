@@ -13,6 +13,7 @@ document.onkeydown = function(e){
 function loginFuc(){
 	var account = $("#account").val();
 	var pwd = $("#pwd").val();
+	pwd = hex_md5(pwd);
 	$.ajax({
 		type:"post",
 		url:"/userRest/login",
@@ -21,16 +22,13 @@ function loginFuc(){
 			"po.pwd":pwd
 		},
 		success:function(data){
-			CookieUtil.set("token",data.token);
 			if(data.msgCode == 1){
 				layer.msg(data.msg, {icon: 6},function(){
-					//location.href = "/user/register";
 					location.href = "/";
 				});
 			}
 			else{
 				layer.msg(data.msg, {icon: 5},function(){
-					//location.href = "/user/register";
 				});
 			}
 		}
