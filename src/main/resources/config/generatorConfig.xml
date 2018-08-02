@@ -22,7 +22,7 @@
 		</javaTypeResolver>
 
 		<!-- targetProject:生成PO类的位置 -->
-		<javaModelGenerator targetPackage="com.wgg.essay.po"
+		<javaModelGenerator targetPackage="com.bingsin.crm.po"
 			targetProject=".\src\main\java">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
@@ -30,14 +30,14 @@
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
         <!-- targetProject:mapper映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="com.wgg.essay.dao" 
+		<sqlMapGenerator targetPackage="com.bingsin.crm.dao" 
 			targetProject=".\src\main\java">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 		<!-- targetPackage：mapper接口生成的位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.wgg.essay.dao" 
+			targetPackage="com.bingsin.crm.dao" 
 			targetProject=".\src\main\java">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
@@ -45,6 +45,14 @@
 		
 		
 		<!-- 指定数据库表 -->
-		<!-- <table tableName="user"></table> -->
+		<table tableName="customer"></table>
+		<table tableName="jurisdiction"></table>
+		<table tableName="order"></table>
+		<table tableName="product"></table>
+		<table tableName="role"></table>
+		<table tableName="role_jurisdiction"></table>
+		<table tableName="user"></table>
+		<table tableName="user_role"></table>
+		<table tableName="work_list"></table>
 	</context>
 </generatorConfiguration>
