@@ -18,6 +18,7 @@ import com.bingsin.crm.utils.Base64Util;
 import com.bingsin.crm.utils.CookiesUtil;
 import com.bingsin.crm.utils.DateUtil;
 import com.bingsin.crm.utils.Md5Util;
+import com.bingsin.crm.utils.PropertiesUtil;
 
 import net.sf.json.JSONObject;
 
@@ -30,6 +31,7 @@ public class UserRest {
 	@Autowired DateUtil dateUtil;
 	@Autowired Base64Util base64Util;
 	@Autowired CookiesUtil cookieUtil;
+	@Autowired PropertiesUtil propertiesUtil;
 
 	@RequestMapping("/login")
 	public UserDto login(UserDto dto,HttpServletResponse response,HttpServletRequest request) {
@@ -45,7 +47,7 @@ public class UserRest {
 				//token加密
 				String tokens = base64Util.base64Encoder(map.toString());
 				dto.setToken(tokens);
-				cookieUtil.setCookie(response, "token", tokens, 3600*24*3);
+				cookieUtil.setCookie(response, "token", tokens, 3600*24*new Integer(propertiesUtil.getCookieLife()));
 				dto.setMsgCode(MsgCode.REQUEST_SUCCESS);
 				dto.setMsg("登录成功");
 			}
