@@ -193,4 +193,8 @@
       state = #{state,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="roleList" parameterType="com.bingsin.crm.dto.role.RoleDto" resultMap="BaseResultMap">
+  	select * from role limit #{start},#{limit}
+  </select>
 </mapper>

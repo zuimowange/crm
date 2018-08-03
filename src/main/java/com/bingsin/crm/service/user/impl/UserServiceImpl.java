@@ -15,9 +15,8 @@ public class UserServiceImpl implements UserService{
 	/**
 	 * 登录方法
 	 */
-	public UserDto login(UserDto dto) {
+	public void login(UserDto dto) {
 		dto.setPo(userMapper.login(dto.getPo()));
-		return dto;
 	}
 
 }

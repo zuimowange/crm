@@ -1,6 +1,7 @@
 package com.bingsin.crm.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class AbstractBaseDto<T extends Object> implements Serializable{
 	
@@ -9,14 +10,20 @@ public abstract class AbstractBaseDto<T extends Object> implements Serializable{
 	*/ 
 	private static final long serialVersionUID = 5221466235070551292L;
 
-	protected Integer msgCode;
+	protected Integer code;
 	protected String msg;
 	protected T po;
-	public Integer getMsgCode() {
-		return msgCode;
+	protected long count;//总页数
+	protected List<T> data;//表格数据
+	protected Integer page;//当前页数
+	protected Integer limit;//查询条数
+	protected Integer start;
+	
+	public Integer getCode() {
+		return code;
 	}
-	public void setMsgCode(Integer msgCode) {
-		this.msgCode = msgCode;
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 	public String getMsg() {
 		return msg;
@@ -30,6 +37,35 @@ public abstract class AbstractBaseDto<T extends Object> implements Serializable{
 	public void setPo(T po) {
 		this.po = po;
 	}
-	
+	public long getCount() {
+		return count;
+	}
+	public void setCount(long count) {
+		this.count = count;
+	}
+	public List<T> getData() {
+		return data;
+	}
+	public void setData(List<T> data) {
+		this.data = data;
+	}
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getLimit() {
+		return limit;
+	}
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+	public Integer getStart() {
+		return start;
+	}
+	public void setStart(Integer start) {
+		this.start = start;
+	}
 	
 }

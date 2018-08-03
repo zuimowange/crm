@@ -1,10 +1,14 @@
 package com.bingsin.crm.dao;
 
+import com.bingsin.crm.dto.role.RoleDto;
 import com.bingsin.crm.po.Role;
 import com.bingsin.crm.po.RoleExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface RoleMapper {
     long countByExample(RoleExample example);
 
@@ -27,4 +31,14 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    /**
+     * 
+    * @Title: roleList 
+    * @Description: TODO(分页获取角色列表) 
+    * @param    
+    * @return List<Role>    
+    * @throws
+     */
+	List<Role> roleList(RoleDto dto);
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>角色列表</title>
+		<base th:href="${baseHref}" href="http://127.0.0.1:8020/resources/static/" />
+		<link rel="stylesheet" href="layui/css/layui.css" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				padding: 15px;
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table class="layui-hide" id="roleList"></table>
+	</body>
+	<script type="text/javascript" src="layui/layui.js"></script>
+	<script>
+		layui.use('table', function() {
+			var table = layui.table;
+			table.render({
+				elem: '#roleList',
+				url: '/roleRest/roleList',
+				page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+				cols: [
+					[{field: 'id',width: 80,title: 'ID',sort: true}, 
+					{field: 'roleName',width: 80,title: '名称'},
+					{field: 'alias',width: 80,title: '别名',sort: true}, 
+					{field: 'state',width: 80,title: '状态'}]
+				],
+				page: true
+			});
+		});
+	</script>
+
+</html>

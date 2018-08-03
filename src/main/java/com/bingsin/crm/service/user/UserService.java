@@ -7,6 +7,6 @@ import com.bingsin.crm.dto.user.UserDto;
 @Service
 public interface UserService {
 
-	UserDto login(UserDto dto);
+	void login(UserDto dto);
 
 }

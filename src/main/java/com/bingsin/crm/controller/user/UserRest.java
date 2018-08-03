@@ -48,15 +48,15 @@ public class UserRest {
 				String tokens = base64Util.base64Encoder(map.toString());
 				dto.setToken(tokens);
 				cookieUtil.setCookie(response, "token", tokens, 3600*24*new Integer(propertiesUtil.getCookieLife()));
-				dto.setMsgCode(MsgCode.REQUEST_SUCCESS);
+				dto.setCode(MsgCode.REQUEST_SUCCESS);
 				dto.setMsg("登录成功");
 			}
 			else {
-				dto.setMsgCode(MsgCode.REQUEST_FAIL);
+				dto.setCode(MsgCode.REQUEST_FAIL);
 				dto.setMsg("登录失败");
 			}
 		} catch (Exception e) {
-			dto.setMsgCode(MsgCode.SERVER_ERROR);
+			dto.setCode(MsgCode.SERVER_ERROR);
 			dto.setMsg("服务器错误");
 		}
 		return dto;
