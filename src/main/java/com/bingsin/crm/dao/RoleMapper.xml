@@ -197,4 +197,7 @@
   <select id="roleList" parameterType="com.bingsin.crm.dto.role.RoleDto" resultMap="BaseResultMap">
   	select * from role limit #{start},#{limit}
   </select>
+  <update id="updateStateById" parameterType="Integer">
+    update role set state = if(state = 0,1,0) where id = #{id}
+  </update>
 </mapper>

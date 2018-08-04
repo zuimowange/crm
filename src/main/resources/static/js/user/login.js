@@ -22,7 +22,7 @@ function loginFuc(){
 			"po.pwd":pwd
 		},
 		success:function(data){
-			if(data.code == 1){
+			if(data.code == 0){
 				layer.msg(data.msg, {icon: 6},function(){
 					location.href = "/";
 				});

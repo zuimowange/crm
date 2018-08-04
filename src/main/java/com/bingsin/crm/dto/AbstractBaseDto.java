@@ -18,6 +18,7 @@ public abstract class AbstractBaseDto<T extends Object> implements Serializable{
 	protected Integer page;//当前页数
 	protected Integer limit;//查询条数
 	protected Integer start;
+	protected String ids;
 	
 	public Integer getCode() {
 		return code;
@@ -67,5 +68,12 @@ public abstract class AbstractBaseDto<T extends Object> implements Serializable{
 	public void setStart(Integer start) {
 		this.start = start;
 	}
+	public String getIds() {
+		return ids;
+	}
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+	
 	
 }

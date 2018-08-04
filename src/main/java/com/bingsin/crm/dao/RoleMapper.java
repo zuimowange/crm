@@ -41,4 +41,14 @@ public interface RoleMapper {
     * @throws
      */
 	List<Role> roleList(RoleDto dto);
+
+	/**
+	 * 
+	* @Title: updateState 
+	* @Description: TODO(修改状态) 
+	* @param    
+	* @return void    
+	* @throws
+	 */
+	void updateStateById(Integer id);
 }

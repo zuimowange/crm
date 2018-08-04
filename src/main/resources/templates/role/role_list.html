@@ -20,23 +20,290 @@
 	</head>
 
 	<body>
-		<table class="layui-hide" id="roleList"></table>
+		<script type="text/html" id="addDemo">
+			<div style="padding: 20px; background-color: #393D49; color: #fff; font-weight: 300;">
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+					    <label class="layui-form-label">名称</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="roleName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <label class="layui-form-label">别名</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="alias" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+					<!--<div class="layui-form-item">
+					    <label class="layui-form-label">生效状态</label>
+					    <div class="layui-input-block">
+					      <select name="state" lay-filter="aihao">
+					        <option value="0" selected="">生效</option>
+					        <option value="1" >不生效</option>
+					      </select>
+					    </div>
+					  </div>-->
+				</form>
+			</div>
+		</script>
+		<!--<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+				    <label class="layui-form-label">名称</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="roleName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">别名</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="alias" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">生效状态</label>
+				    <div class="layui-input-block">
+				      <select name="state" lay-filter="aihao">
+				        <option value="0" selected="">生效</option>
+				        <option value="1" >不生效</option>
+				      </select>
+				    </div>
+				  </div>
+			</form>
+		</div>-->
+		
+			
+		<!--<table class="layui-hide" id="roleList"></table>-->
+		<div class="layui-btn-group demoTable">
+			<button class="layui-btn" data-type="batchUpdate">批量修改</button>
+			<button class="layui-btn" data-type="batchDelete">批量删除</button>
+			<button class="layui-btn" data-type="add">新增</button>
+		</div>
+		<table class="layui-table" lay-data="{width: 892, height:332, url:'/roleRest/roleList', page:true, id:'idTest'}" lay-filter="demo">
+			<thead>
+				<tr>
+					<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+					<th lay-data="{field:'id', sort: true, fixed: true}">ID</th>
+					<th lay-data="{field:'roleName',edit: 'text'}">名称</th>
+					<th lay-data="{field:'alias',edit: 'text'}">别名</th>
+					<th lay-data="{field:'state',templet: '#checkboxTpl', unresize: true}">生效状态</th>
+					<th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}"></th>
+				</tr>
+			</thead>
+		</table>
+
+		<script type="text/html" id="checkboxTpl">
+			<!-- 这里的 checked 的状态只是演示 -->
+			<input type="checkbox" name="lock" value="{{d.state}}" tabindex={{d.id}} title="生效" lay-filter="lockDemo" {{ d.state==0 ? 'checked' : '' }}>
+		</script>
+		<script type="text/html" id="barDemo">
+			<!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
 	</body>
 	<script type="text/javascript" src="layui/layui.js"></script>
+	<script type="text/javascript" src="js/pub/jquery-1.8.3.min.js"></script>
 	<script>
 		layui.use('table', function() {
-			var table = layui.table;
-			table.render({
-				elem: '#roleList',
-				url: '/roleRest/roleList',
-				page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-				cols: [
-					[{field: 'id',width: 80,title: 'ID',sort: true}, 
-					{field: 'roleName',width: 80,title: '名称'},
-					{field: 'alias',width: 80,title: '别名',sort: true}, 
-					{field: 'state',width: 80,title: '状态'}]
-				],
-				page: true
+			var table = layui.table,
+				form = layui.form;
+			//监听表格复选框选择
+			table.on('checkbox(demo)', function(obj) {
+				console.log(obj)
+			});
+			//监听工具条
+			table.on('tool(demo)', function(obj) {
+				var data = obj.data;
+				if(obj.event === 'del') {
+					layer.confirm('确定删除该条数据吗？', function(index) {
+						$.ajax({
+							type: "post",
+							url: "/roleRest/deleteById",
+							data: {
+								"po.id": data.id
+							},
+							success: function(data) {
+								if(data.code == 0) {
+									obj.del();
+									layer.close(index);
+								} else {
+									layer.close(index);
+									layer.msg(data.msg, {
+										icon: 5
+									}, function() {});
+								}
+							}
+						});
+
+					});
+
+				}
+				/*if(obj.event === 'detail') {
+					layer.msg('ID：' + data.id + ' 的查看操作');
+				} else if(obj.event === 'del') {
+					layer.confirm('真的删除行么', function(index) {
+						obj.del();
+						layer.close(index);
+					});
+				} else if(obj.event === 'edit') {
+					layer.alert('编辑行：<br>' + JSON.stringify(data))
+				}*/
+			});
+			//监听单元格编辑
+			table.on('edit(demo)', function(obj) {
+				var value = obj.value //得到修改后的值
+					,
+					data = obj.data //得到所在行所有键值
+					,
+					field = obj.field; //得到字段
+				//layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+				$.ajax({
+					type: "post",
+					url: "/roleRest/updateStateById",
+					data: {
+						"po.id": data.id,
+						"po.roleName": data.roleName,
+						"po.alias": data.alias,
+						"po.state": data.state
+					}
+				});
+			});
+
+			//监听锁定操作
+			form.on('checkbox(lockDemo)', function(obj) {
+				//layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+				$.ajax({
+					type: "post",
+					url: "/roleRest/updateStateById",
+					data: {
+						"po.id": $(this).attr("tabindex")
+					},
+					success: function(data) {
+						if(data.code == 0) {
+							layer.msg(data.msg, {
+								icon: 6
+							}, function() {});
+						} else {
+							layer.msg(data.msg, {
+								icon: 5
+							}, function() {});
+						}
+					}
+				});
+			});
+
+			var $ = layui.$,
+				active = {
+					//批量修改
+					batchUpdate: function() {
+						layer.confirm('确定修改吗？', function(index) {
+							var checkStatus = table.checkStatus('idTest'),
+								data = checkStatus.data;
+							var ids;
+							for(var i = 0; i < data.length; i++) {
+								if(i == 0) {
+									ids = data[i].id;
+								} else {
+									ids += "," + data[i].id;
+								}
+							}
+							$.ajax({
+								type: "post",
+								url: "/roleRest/updateStateByIds",
+								traditional: true,
+								data: {
+									"ids": ids
+								},
+								success: function(data) {
+									if(data.code == 0) {
+										layer.close(index);
+										table.reload('idTest');
+									} else {
+										layer.close(index);
+										layer.msg(data.msg, {
+											icon: 5
+										}, function() {});
+									}
+								}
+							});
+
+						});
+
+					},
+					//批量删除
+					batchDelete: function() {
+						layer.confirm('确定删除吗？', function(index) {
+							var checkStatus = table.checkStatus('idTest'),
+								data = checkStatus.data;
+							var ids;
+							for(var i = 0; i < data.length; i++) {
+								if(i == 0) {
+									ids = data[i].id;
+								} else {
+									ids += "," + data[i].id;
+								}
+							}
+							$.ajax({
+								type: "post",
+								url: "/roleRest/deleteByIds",
+								traditional: true,
+								data: {
+									"ids": ids
+								},
+								success: function(data) {
+									if(data.code == 0) {
+										layer.close(index);
+										table.reload('idTest');
+									} else {
+										layer.close(index);
+										layer.msg(data.msg, {
+											icon: 5
+										}, function() {});
+									}
+								}
+							});
+
+						});
+
+					},
+					//增加
+					add: function() {
+						layer.open({
+							type: 1,
+							title: false, //不显示标题栏
+							closeBtn: false,
+							area: '400px;',
+							shade: 0.8,
+							id: 'LAY_layuipro', //设定一个id，防止重复弹出
+							btn: ['确定', '取消'],
+							btnAlign: 'c',
+							moveType: 1, //拖拽模式，0或者1
+							content: $("#addDemo").html(),
+							success: function(layero) {
+								/*var btn = layero.find('.layui-layer-btn');
+								btn.find('.layui-layer-btn0').attr({
+									href: 'http://www.layui.com/',
+									target: '_blank'
+								});*/
+							}
+						});
+					},
+					getCheckLength: function() { //获取选中数目
+						var checkStatus = table.checkStatus('idTest'),
+							data = checkStatus.data;
+						layer.msg('选中了：' + data.length + ' 个');
+					},
+					isAll: function() { //验证是否全选
+						var checkStatus = table.checkStatus('idTest');
+						layer.msg(checkStatus.isAll ? '全选' : '未全选')
+					}
+				};
+
+			$('.demoTable .layui-btn').on('click', function() {
+				var type = $(this).data('type');
+				active[type] ? active[type].call(this) : '';
 			});
 		});
 	</script>
