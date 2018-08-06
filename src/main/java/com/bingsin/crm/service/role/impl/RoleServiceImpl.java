@@ -56,4 +56,10 @@ public class RoleServiceImpl implements RoleService{
 		}
 	}
 
+	@Override
+	public void add(RoleDto dto) {
+		dto.getPo().setState("0");
+		roleMapper.insert(dto.getPo());
+	}
+
 }

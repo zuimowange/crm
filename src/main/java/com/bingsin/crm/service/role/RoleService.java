@@ -19,4 +19,6 @@ public interface RoleService {
 
 	void deleteByIds(RoleDto dto);
 
+	void add(RoleDto dto);
+
 }

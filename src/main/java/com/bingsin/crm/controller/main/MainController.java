@@ -14,6 +14,12 @@ public class MainController {
 	@Autowired PropertiesUtil propertiesUtil;
 	
 	@RequestMapping("/")
+	public String main(Model model) {
+		model.addAttribute("baseHref", propertiesUtil.getBaseHref());
+		return "main/main";
+		
+	}
+	@RequestMapping("index")
 	public String index(Model model) {
 		model.addAttribute("baseHref", propertiesUtil.getBaseHref());
 		return "main/index";

@@ -96,5 +96,16 @@ public class RoleRest {
 		}
 		return dto;
 	}
-
+	@RequestMapping("add")
+	public RoleDto add(RoleDto dto) {
+		try {
+			roleService.add(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("添加成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
 }

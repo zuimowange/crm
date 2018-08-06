@@ -32,7 +32,7 @@ public class UserController {
 		model.addAttribute("baseHref", propertiesUtil.getBaseHref());
 		String token = cookiesUtil.getCookieByName(request, "token");
 		if(token != null) {
-			return "main/index";
+			return "main/main";
 		}
 		return "user/login";
 	}
