@@ -11,17 +11,13 @@
 				margin: 0;
 				padding: 0;
 			}
-			
-			body {
-				padding: 15px;
-				box-sizing: border-box;
-			}
 		</style>
 	</head>
 
 	<body>
 		<script type="text/html" id="addDemo">
 			<div style="padding: 20px; background-color: #393D49; color: #fff; font-weight: 300;">
+				<div style="text-align: center;padding: 10px 0 20px 0;">新增角色</div>
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
 					    <label class="layui-form-label">名称</label>
@@ -35,52 +31,17 @@
 					      <input type="text" name="alias" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
 					    </div>
 					</div>
-					<!--<div class="layui-form-item">
-					    <label class="layui-form-label">生效状态</label>
-					    <div class="layui-input-block">
-					      <select name="state" lay-filter="aihao">
-					        <option value="0" selected="">生效</option>
-					        <option value="1" >不生效</option>
-					      </select>
-					    </div>
-					  </div>-->
+					
 				</form>
 			</div>
 		</script>
-		<!--<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">
-			<form class="layui-form" action="">
-				<div class="layui-form-item">
-				    <label class="layui-form-label">名称</label>
-				    <div class="layui-input-block">
-				      <input type="text" name="roleName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-				    </div>
-				</div>
-				<div class="layui-form-item">
-				    <label class="layui-form-label">别名</label>
-				    <div class="layui-input-block">
-				      <input type="text" name="alias" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-				    </div>
-				</div>
-				<div class="layui-form-item">
-				    <label class="layui-form-label">生效状态</label>
-				    <div class="layui-input-block">
-				      <select name="state" lay-filter="aihao">
-				        <option value="0" selected="">生效</option>
-				        <option value="1" >不生效</option>
-				      </select>
-				    </div>
-				  </div>
-			</form>
-		</div>-->
 		
-			
-		<!--<table class="layui-hide" id="roleList"></table>-->
 		<div class="layui-btn-group demoTable">
 			<button class="layui-btn" data-type="batchUpdate">批量修改</button>
 			<button class="layui-btn" data-type="batchDelete">批量删除</button>
 			<button class="layui-btn" data-type="add">新增</button>
 		</div>
-		<table class="layui-table" lay-data="{width: 892, height:332, url:'/roleRest/roleList', page:true, id:'idTest'}" lay-filter="demo">
+		<table class="layui-table" lay-data="{ height: 'full-63',cellMinWidth:80,url:'/roleRest/roleList', page:true, id:'idTest'}" lay-filter="demo">
 			<thead>
 				<tr>
 					<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
@@ -88,7 +49,7 @@
 					<th lay-data="{field:'roleName',edit: 'text'}">名称</th>
 					<th lay-data="{field:'alias',edit: 'text'}">别名</th>
 					<th lay-data="{field:'state',templet: '#checkboxTpl', unresize: true}">生效状态</th>
-					<th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}"></th>
+					<th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}">操作</th>
 				</tr>
 			</thead>
 		</table>
@@ -201,6 +162,10 @@
 						layer.confirm('确定修改吗？', function(index) {
 							var checkStatus = table.checkStatus('idTest'),
 								data = checkStatus.data;
+							if(data.length == 0){
+								layer.msg("请选中数据", {icon: 5});
+								return false;
+							}
 							var ids;
 							for(var i = 0; i < data.length; i++) {
 								if(i == 0) {
@@ -237,6 +202,10 @@
 						layer.confirm('确定删除吗？', function(index) {
 							var checkStatus = table.checkStatus('idTest'),
 								data = checkStatus.data;
+							if(data.length == 0){
+								layer.msg("请选中数据", {icon: 5});
+								return false;
+							}
 							var ids;
 							for(var i = 0; i < data.length; i++) {
 								if(i == 0) {
