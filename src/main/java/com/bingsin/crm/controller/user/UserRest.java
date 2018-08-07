@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bingsin.crm.config.MsgCode;
 import com.bingsin.crm.dto.user.UserDto;
+import com.bingsin.crm.po.User;
 import com.bingsin.crm.service.user.UserService;
 import com.bingsin.crm.vo.Token;
 import com.bingsin.crm.utils.Base64Util;
@@ -60,6 +61,16 @@ public class UserRest {
 			dto.setMsg("服务器错误");
 		}
 		return dto;
+	}
+	
+	@RequestMapping("/findNameById")
+	public String findNameById(UserDto dto) {
+		try {
+			userService.findById(dto);
+			return dto.getPo().getUserName();
+		} catch (Exception e) {
+			return "游客";
+		}
 	}
 	
 }

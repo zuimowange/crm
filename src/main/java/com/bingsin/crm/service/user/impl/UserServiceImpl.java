@@ -19,4 +19,12 @@ public class UserServiceImpl implements UserService{
 		dto.setPo(userMapper.login(dto.getPo()));
 	}
 
+	/**
+	 * 根据ID查找user
+	 */
+	@Override
+	public void findById(UserDto dto) {
+		dto.setPo(userMapper.selectByPrimaryKey(dto.getPo().getId()));
+	}
+
 }
