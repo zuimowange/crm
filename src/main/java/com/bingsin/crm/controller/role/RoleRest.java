@@ -14,10 +14,10 @@ public class RoleRest {
 	
 	@Autowired RoleService roleService;
 	
-	@RequestMapping("roleList")
+	@RequestMapping("list")
 	public RoleDto roleList(RoleDto dto) {
 		try {
-			roleService.roleList(dto);
+			roleService.list(dto);
 			dto.setCode(MsgCode.REQUEST_SUCCESS);
 			dto.setMsg("请求成功");
 		} catch (Exception e) {
@@ -102,6 +102,19 @@ public class RoleRest {
 			roleService.add(dto);
 			dto.setCode(MsgCode.REQUEST_SUCCESS);
 			dto.setMsg("添加成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
+	
+	@RequestMapping("allRole")
+	public RoleDto allRole(RoleDto dto) {
+		try {
+			roleService.allRole(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
 		} catch (Exception e) {
 			dto.setCode(MsgCode.SERVER_ERROR);
 			dto.setMsg("服务器错误");

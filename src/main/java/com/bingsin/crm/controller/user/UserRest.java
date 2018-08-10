@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bingsin.crm.config.MsgCode;
 import com.bingsin.crm.dto.user.UserDto;
-import com.bingsin.crm.po.User;
 import com.bingsin.crm.service.user.UserService;
 import com.bingsin.crm.vo.Token;
 import com.bingsin.crm.utils.Base64Util;
@@ -71,6 +70,94 @@ public class UserRest {
 		} catch (Exception e) {
 			return "游客";
 		}
+	}
+	
+	@RequestMapping("list")
+	public UserDto userList(UserDto dto) {
+		try {
+			userService.list(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
+	
+	
+	@RequestMapping("updateById")
+	public UserDto updateById(UserDto dto) {
+		try {
+			userService.updateById(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
+	
+	@RequestMapping("updateStateById")
+	public UserDto updateStateById(UserDto dto) {
+		try {
+			userService.updateStateById(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
+	@RequestMapping("updateStateByIds")
+	public UserDto updateStateByIds(UserDto dto) {
+		try {
+			userService.updateStateByIds(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
+	@RequestMapping("deleteById")
+	public UserDto deleteById(UserDto dto) {
+		try {
+			userService.deleteById(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
+	@RequestMapping("deleteByIds")
+	public UserDto deleteByIds(UserDto dto) {
+		try {
+			userService.deleteByIds(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
+	@RequestMapping("add")
+	public UserDto add(UserDto dto) {
+		try {
+			userService.add(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("添加成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
 	}
 	
 }

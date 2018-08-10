@@ -8,6 +8,13 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="state" jdbcType="CHAR" property="state" />
   </resultMap>
+  <resultMap id="BaseResultMapVo" type="com.bingsin.crm.vo.user.UserVo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="state" jdbcType="CHAR" property="state" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -83,7 +90,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapVo">
     select 
     <include refid="Base_Column_List" />
     from user
@@ -210,7 +217,27 @@
   </update>
   
   <!-- 登录方法 -->
-  <select id="login" parameterType="com.bingsin.crm.po.User" resultType="com.bingsin.crm.po.User">
+  <select id="login" parameterType="com.bingsin.crm.po.User" resultMap="BaseResultMapVo">
     select * from user where account = #{account} and pwd = #{pwd}
   </select>
+  
+  <!-- 分页查询 -->
+  <select id="list" parameterType="com.bingsin.crm.dto.user.UserDto" resultMap="BaseResultMapVo">
+  	SELECT
+`user`.id,
+`user`.account,
+`user`.pwd,
+`user`.user_name,
+`user`.state,
+role.id role_id,
+role.role_name
+FROM
+`user`
+INNER JOIN user_role ON user_role.user_id = `user`.id
+INNER JOIN role ON user_role.role_id = role.id
+limit #{start},#{limit}
+  </select>
+  <update id="updateStateById" parameterType="Integer">
+    update user set state = if(state = 0,1,0) where id = #{id}
+  </update>
 </mapper>

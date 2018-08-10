@@ -1,7 +1,12 @@
 package com.bingsin.crm.dao;
 
+import com.bingsin.crm.dto.role.RoleDto;
+import com.bingsin.crm.dto.user.UserDto;
+import com.bingsin.crm.po.Role;
 import com.bingsin.crm.po.User;
 import com.bingsin.crm.po.UserExample;
+import com.bingsin.crm.vo.user.UserVo;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -21,7 +26,7 @@ public interface UserMapper {
 
     List<User> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(Integer id);
+    UserVo selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
@@ -39,5 +44,9 @@ public interface UserMapper {
     * @return UserDto    
     * @throws
      */
-	User login(User po);
+	UserVo login(User po);
+
+	List<UserVo> list(UserDto dto);
+
+	void updateStateById(Integer id);
 }

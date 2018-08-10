@@ -18,16 +18,16 @@ public class RoleServiceImpl implements RoleService{
 	@Autowired RoleMapper roleMapper;
 	
 	@Override
-	public void roleList(RoleDto dto) {
+	public void list(RoleDto dto) {
 		dto.setStart((dto.getPage()-1)*dto.getLimit());
-		dto.setData(roleMapper.roleList(dto));
+		dto.setData(roleMapper.list(dto));
 		RoleExample example = new RoleExample();
 		dto.setCount(roleMapper.countByExample(example));
 	}
 
 	@Override
 	public void updateById(RoleDto dto) {
-		roleMapper.updateByPrimaryKey(dto.getPo());
+		roleMapper.updateByPrimaryKeySelective(dto.getPo());
 	}
 
 	@Override
@@ -60,6 +60,14 @@ public class RoleServiceImpl implements RoleService{
 	public void add(RoleDto dto) {
 		dto.getPo().setState("0");
 		roleMapper.insert(dto.getPo());
+	}
+
+	/**
+	 * 查询所有用户（用户下拉菜单）
+	 */
+	@Override
+	public void allRole(RoleDto dto) {
+		dto.setData(roleMapper.allRole());
 	}
 
 }

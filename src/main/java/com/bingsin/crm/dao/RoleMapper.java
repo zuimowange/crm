@@ -40,7 +40,7 @@ public interface RoleMapper {
     * @return List<Role>    
     * @throws
      */
-	List<Role> roleList(RoleDto dto);
+	List<Role> list(RoleDto dto);
 
 	/**
 	 * 
@@ -51,4 +51,14 @@ public interface RoleMapper {
 	* @throws
 	 */
 	void updateStateById(Integer id);
+
+	/**
+	 * 
+	* @Title: allRole 
+	* @Description: TODO(查询所有角色) 
+	* @param    
+	* @return List<Role>    
+	* @throws
+	 */
+	List<Role> allRole();
 }

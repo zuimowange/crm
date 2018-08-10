@@ -41,4 +41,9 @@ public class UserController {
 		model.addAttribute("baseHref", propertiesUtil.getBaseHref());
 		return "user/reg";
 	}
+	@RequestMapping("userList")
+	public String userList(Model model) {
+		model.addAttribute("baseHref", propertiesUtil.getBaseHref());
+		return "user/user_list";
+	}
 }

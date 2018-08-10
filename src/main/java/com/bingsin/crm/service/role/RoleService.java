@@ -7,7 +7,7 @@ import com.bingsin.crm.dto.role.RoleDto;
 @Service
 public interface RoleService {
 
-	void roleList(RoleDto dto);
+	void list(RoleDto dto);
 
 	void updateById(RoleDto dto);
 
@@ -20,5 +20,7 @@ public interface RoleService {
 	void deleteByIds(RoleDto dto);
 
 	void add(RoleDto dto);
+
+	void allRole(RoleDto dto);
 
 }
