@@ -17,7 +17,6 @@
 	<body>
 		<script type="text/html" id="addDemo">
 			<div style="padding: 20px; background-color: #393D49; color: #fff; font-weight: 300;">
-				<div style="text-align: center;padding: 10px 0 20px 0;">新增角色</div>
 				<form class="layui-form" action="">
 					<div class="layui-form-item">
 					    <label class="layui-form-label">名称</label>
@@ -223,7 +222,7 @@
 					add: function() {
 						var addIndex = layer.open({
 							type: 1,
-							title: false, //不显示标题栏
+							title: "新增角色", //不显示标题栏
 							closeBtn: false,
 							area: '400px;',
 							shade: 0.8,

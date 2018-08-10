@@ -150,9 +150,16 @@ public class UserRest {
 	@RequestMapping("add")
 	public UserDto add(UserDto dto) {
 		try {
-			userService.add(dto);
-			dto.setCode(MsgCode.REQUEST_SUCCESS);
-			dto.setMsg("添加成功");
+			boolean flag = userService.findAccount(dto);
+			if(flag) {
+				userService.add(dto);
+				dto.setCode(MsgCode.REQUEST_SUCCESS);
+				dto.setMsg("添加成功");
+			}
+			else {
+				dto.setCode(MsgCode.SERVER_ERROR);
+				dto.setMsg("该账号已存在");
+			}
 		} catch (Exception e) {
 			dto.setCode(MsgCode.SERVER_ERROR);
 			dto.setMsg("服务器错误");

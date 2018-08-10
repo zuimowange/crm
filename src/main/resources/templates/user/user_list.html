@@ -10,17 +10,31 @@
 				margin: 0;
 				padding: 0;
 			}
+			
+			.layui-layer-content {
+    			overflow: visible;
+    			/*background: rgb(57,61,73);*/
+			}
+			.layui-anim-upbit dd{
+				color: black;
+			}
+			.layui-form-selectup dl{height: 160px;}
 		</style>
 	</head>
 	<body>
 		<script type="text/html" id="addDemo">
 			<div style="padding: 20px; background-color: #393D49; color: #fff; font-weight: 300;">
-				<div style="text-align: center;padding: 10px 0 20px 0;">新增账号</div>
-				<form class="layui-form" action="">
+				<form class="layui-form" action="" lay-filter="example">
 					<div class="layui-form-item">
 					    <label class="layui-form-label">账号</label>
 					    <div class="layui-input-block">
 					      <input type="text" name="account" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <label class="layui-form-label">姓名</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="userName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
 					    </div>
 					</div>
 					<div class="layui-form-item">
@@ -29,10 +43,16 @@
 					      <input type="text" name="pwd" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
 					    </div>
 					</div>
-					
+					<div class="layui-form-item">
+					    <label class="layui-form-label">职务</label>
+					    <div class="layui-input-block">
+					      <select name="roleId"></select>
+					    </div>
+					  </div>
 				</form>
 			</div>
 		</script>
+		
 		<div class="layui-btn-group demoTable">
 			<button class="layui-btn" data-type="batchUpdate">批量修改</button>
 			<button class="layui-btn" data-type="batchDelete">批量删除</button>
@@ -45,7 +65,7 @@
 					<th lay-data="{field:'id', sort: true, fixed: true}">ID</th>
 					<th lay-data="{field:'account'}">账号</th>
 					<th lay-data="{field:'userName',edit: 'text'}">用户名</th>
-					<th lay-data="{field:'roleName'}">角色</th>
+					<th lay-data="{field:'roleName',templet:'#role'}">角色</th>
 					<th lay-data="{field:'state',templet: '#checkboxTpl', unresize: true}">生效状态</th>
 					<th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}">操作</th>
 				</tr>
@@ -55,12 +75,23 @@
 		<script type="text/html" id="checkboxTpl">
 			<input type="checkbox" name="lock" value="{{d.state}}" tabindex={{d.id}} title="生效" lay-filter="lockDemo" {{ d.state==0 ? 'checked' : '' }}>
 		</script>
+		<script type="text/html" id="role">
+			<form class="layui-form" action="" lay-filter="example">
+				<div class="layui-form-item">
+					    <div class="layui-input-block">
+					      <select name="roleId" >
+					      </select>
+					    </div>
+					  </div>
+			</form>
+		</script>
 		<script type="text/html" id="barDemo">
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
 	</body>
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script type="text/javascript" src="js/pub/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/pub/base64.js" ></script>
 	<script>
 		layui.use('table', function() {
 			var table = layui.table,
@@ -220,7 +251,7 @@
 					add: function() {
 						var addIndex = layer.open({
 							type: 1,
-							title: false, //不显示标题栏
+							title: "新增账号", //不显示标题栏
 							closeBtn: false,
 							area: '400px;',
 							shade: 0.8,
@@ -230,14 +261,19 @@
 							moveType: 1, //拖拽模式，0或者1
 							content: $("#addDemo").html(),
 							yes:function(){
-								var roleName = $("input[name='roleName']").val();
-								var alias = $("input[name='alias']").val();
+								var account = $("input[name='account']").val();
+								var userName = $("input[name='userName']").val();
+								var pwd = Base.encode($("input[name='pwd']").val());
+								var roleId = parseInt($("select[name='roleId']").val());
+								
 								$.ajax({
 									type:"post",
 									url:"/userRest/add",
 									data:{
-										"po.roleName":roleName,
-										"po.alias":alias
+										"po.account":account,
+										"po.userName":userName,
+										"po.pwd":pwd,
+										"po.roleId":roleId
 									},
 									success:function(data){
 										if(data.code == 0) {
@@ -250,6 +286,27 @@
 											layer.msg(data.msg, {
 												icon: 5
 											}, function() {});
+										}
+									}
+								});
+							},
+							success:function(){
+								$.ajax({
+									type:"post",
+									url:"/roleRest/allRole",
+									success:function(data){
+										if(data.code == 0){
+											var myOption = '<option value=""></option>';
+											for(var i=0;i<data.data.length;i++){
+												if(data.data[i].state == 0){
+													myOption += '<option value="'+data.data[i].id+'">'+data.data[i].roleName+'</option>';
+												}
+												else{
+													myOption += '<option disabled value="'+data.data[i].id+'">'+data.data[i].roleName+'</option>';
+												}
+											}
+											$("select[name='roleId']").html(myOption);
+											form.render()
 										}
 									}
 								});

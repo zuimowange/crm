@@ -3,8 +3,11 @@ package com.bingsin.crm.dao;
 import com.bingsin.crm.po.UserRole;
 import com.bingsin.crm.po.UserRoleExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface UserRoleMapper {
     long countByExample(UserRoleExample example);
 

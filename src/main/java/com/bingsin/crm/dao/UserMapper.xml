@@ -14,6 +14,8 @@
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="state" jdbcType="CHAR" property="state" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -106,7 +108,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bingsin.crm.po.User">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bingsin.crm.po.User">
     insert into user (id, account, pwd, 
       user_name, state)
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
@@ -233,11 +235,15 @@ role.id role_id,
 role.role_name
 FROM
 `user`
-INNER JOIN user_role ON user_role.user_id = `user`.id
-INNER JOIN role ON user_role.role_id = role.id
+LEFT JOIN user_role ON user_role.user_id = `user`.id
+LEFT JOIN role ON user_role.role_id = role.id
 limit #{start},#{limit}
   </select>
   <update id="updateStateById" parameterType="Integer">
     update user set state = if(state = 0,1,0) where id = #{id}
   </update>
+  
+  <select id="findAccount" parameterType="com.bingsin.crm.vo.user.UserVo" resultMap="BaseResultMap">
+    select account from user where account = #{account} limit 1
+  </select>
 </mapper>

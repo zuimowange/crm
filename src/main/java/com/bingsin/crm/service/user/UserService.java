@@ -25,5 +25,7 @@ public interface UserService {
 
 	void add(UserDto dto);
 
+	boolean findAccount(UserDto dto);
+
 
 }

@@ -49,4 +49,8 @@ public interface UserMapper {
 	List<UserVo> list(UserDto dto);
 
 	void updateStateById(Integer id);
+
+	void add(UserVo po);
+
+	User findAccount(UserVo po);
 }

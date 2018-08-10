@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bingsin.crm.dao.UserMapper;
+import com.bingsin.crm.dao.UserRoleMapper;
 import com.bingsin.crm.dto.user.UserDto;
 import com.bingsin.crm.po.RoleExample;
 import com.bingsin.crm.po.User;
 import com.bingsin.crm.po.UserExample;
+import com.bingsin.crm.po.UserRole;
 import com.bingsin.crm.service.user.UserService;
 import com.bingsin.crm.vo.user.UserVo;
 
@@ -15,6 +17,7 @@ import com.bingsin.crm.vo.user.UserVo;
 public class UserServiceImpl implements UserService{
 
 	@Autowired UserMapper userMapper;
+	@Autowired UserRoleMapper userRoleMapper;
 	
 	/**
 	 * 登录方法
@@ -74,6 +77,20 @@ public class UserServiceImpl implements UserService{
 	public void add(UserDto dto) {
 		dto.getPo().setState("0");
 		userMapper.insert(dto.getPo());
+		UserRole userRole = new UserRole();
+		userRole.setUserId(dto.getPo().getId());
+		userRole.setRoleId(dto.getPo().getRoleId());
+		userRole.setState("0");
+		userRoleMapper.insert(userRole);
+	}
+
+	@Override
+	public boolean findAccount(UserDto dto) {
+		User user = userMapper.findAccount(dto.getPo());
+		if(user == null) {
+			return true;
+		}
+		return false;
 	}
 
 }
