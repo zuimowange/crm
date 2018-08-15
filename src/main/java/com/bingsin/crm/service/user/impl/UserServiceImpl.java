@@ -1,5 +1,7 @@
 package com.bingsin.crm.service.user.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,13 +81,13 @@ public class UserServiceImpl implements UserService{
 	public void add(UserDto dto) {
 		dto.getPo().setState("0");
 		String pwd = base64Util.base64Decoder(dto.getPo().getPwd());
-		System.out.println("**********************");
-		System.out.println(pwd);
+		dto.getPo().setTime(new Date());
 		userMapper.insert(dto.getPo());
 		UserRole userRole = new UserRole();
 		userRole.setUserId(dto.getPo().getId());
 		userRole.setRoleId(dto.getPo().getRoleId());
 		userRole.setState("0");
+		userRole.setTime(new Date());
 		userRoleMapper.insert(userRole);
 	}
 

@@ -1,5 +1,7 @@
 package com.bingsin.crm.po;
 
+import java.util.Date;
+
 public class UserRole {
     private Integer id;
 
@@ -8,6 +10,8 @@ public class UserRole {
     private Integer roleId;
 
     private String state;
+
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -39,5 +43,13 @@ public class UserRole {
 
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

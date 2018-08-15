@@ -1,6 +1,7 @@
 package com.bingsin.crm.po;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CustomerExample {
@@ -444,6 +445,76 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
+        public Criteria andWechatIsNull() {
+            addCriterion("wechat is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatIsNotNull() {
+            addCriterion("wechat is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatEqualTo(String value) {
+            addCriterion("wechat =", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotEqualTo(String value) {
+            addCriterion("wechat <>", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatGreaterThan(String value) {
+            addCriterion("wechat >", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatGreaterThanOrEqualTo(String value) {
+            addCriterion("wechat >=", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatLessThan(String value) {
+            addCriterion("wechat <", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatLessThanOrEqualTo(String value) {
+            addCriterion("wechat <=", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatLike(String value) {
+            addCriterion("wechat like", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotLike(String value) {
+            addCriterion("wechat not like", value, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatIn(List<String> values) {
+            addCriterion("wechat in", values, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotIn(List<String> values) {
+            addCriterion("wechat not in", values, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatBetween(String value1, String value2) {
+            addCriterion("wechat between", value1, value2, "wechat");
+            return (Criteria) this;
+        }
+
+        public Criteria andWechatNotBetween(String value1, String value2) {
+            addCriterion("wechat not between", value1, value2, "wechat");
+            return (Criteria) this;
+        }
+
         public Criteria andRefereeIsNull() {
             addCriterion("referee is null");
             return (Criteria) this;
@@ -501,6 +572,66 @@ public class CustomerExample {
 
         public Criteria andRefereeNotBetween(Integer value1, Integer value2) {
             addCriterion("referee not between", value1, value2, "referee");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIsNull() {
+            addCriterion("time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIsNotNull() {
+            addCriterion("time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeEqualTo(Date value) {
+            addCriterion("time =", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotEqualTo(Date value) {
+            addCriterion("time <>", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeGreaterThan(Date value) {
+            addCriterion("time >", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("time >=", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeLessThan(Date value) {
+            addCriterion("time <", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeLessThanOrEqualTo(Date value) {
+            addCriterion("time <=", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIn(List<Date> values) {
+            addCriterion("time in", values, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotIn(List<Date> values) {
+            addCriterion("time not in", values, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeBetween(Date value1, Date value2) {
+            addCriterion("time between", value1, value2, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotBetween(Date value1, Date value2) {
+            addCriterion("time not between", value1, value2, "time");
             return (Criteria) this;
         }
     }

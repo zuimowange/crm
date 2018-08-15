@@ -6,6 +6,7 @@
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
     <result column="state" jdbcType="CHAR" property="state" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, role_name, alias, state
+    id, role_name, alias, state, time
   </sql>
   <select id="selectByExample" parameterType="com.bingsin.crm.po.RoleExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.bingsin.crm.po.Role">
     insert into role (id, role_name, alias, 
-      state)
+      state, time)
     values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
-      #{state,jdbcType=CHAR})
+      #{state,jdbcType=CHAR}, #{time,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.bingsin.crm.po.Role">
     insert into role
@@ -119,6 +120,9 @@
       <if test="state != null">
         state,
       </if>
+      <if test="time != null">
+        time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="state != null">
         #{state,jdbcType=CHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.state != null">
         state = #{record.state,jdbcType=CHAR},
       </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       role_name = #{record.roleName,jdbcType=VARCHAR},
       alias = #{record.alias,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=CHAR}
+      state = #{record.state,jdbcType=CHAR},
+      time = #{record.time,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="state != null">
         state = #{state,jdbcType=CHAR},
       </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update role
     set role_name = #{roleName,jdbcType=VARCHAR},
       alias = #{alias,jdbcType=VARCHAR},
-      state = #{state,jdbcType=CHAR}
+      state = #{state,jdbcType=CHAR},
+      time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -205,5 +220,8 @@
   </select>
   <select id="ableRole" parameterType="com.bingsin.crm.dto.role.RoleDto" resultMap="BaseResultMap">
   	select id,role_name,state from role where state = '0'
+  </select>
+  <select id="findRoleName" parameterType="com.bingsin.crm.po.Role" resultMap="BaseResultMap">
+    select role_name from role where role_name = #{roleName} limit 1
   </select>
 </mapper>

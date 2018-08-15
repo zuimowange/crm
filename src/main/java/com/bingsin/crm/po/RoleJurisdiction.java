@@ -1,5 +1,7 @@
 package com.bingsin.crm.po;
 
+import java.util.Date;
+
 public class RoleJurisdiction {
     private Integer id;
 
@@ -8,6 +10,8 @@ public class RoleJurisdiction {
     private Integer jurisdictionId;
 
     private String state;
+
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -39,5 +43,13 @@ public class RoleJurisdiction {
 
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

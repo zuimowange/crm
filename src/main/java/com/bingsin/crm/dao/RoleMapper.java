@@ -31,36 +31,14 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
-
-    /**
-     * 
-    * @Title: roleList 
-    * @Description: TODO(分页获取角色列表) 
-    * @param    
-    * @return List<Role>    
-    * @throws
-     */
+    
 	List<Role> list(RoleDto dto);
-
-	/**
-	 * 
-	* @Title: updateState 
-	* @Description: TODO(修改状态) 
-	* @param    
-	* @return void    
-	* @throws
-	 */
+	
 	void updateStateById(Integer id);
-
-	/**
-	 * 
-	* @Title: allRole 
-	* @Description: TODO(查询所有角色) 
-	* @param    
-	* @return List<Role>    
-	* @throws
-	 */
+	
 	List<Role> allRole();
 
 	List<Role> ableRole();
+
+	Role findRoleName(Role role);
 }

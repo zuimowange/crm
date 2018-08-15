@@ -7,6 +7,7 @@
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="state" jdbcType="CHAR" property="state" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
   <resultMap id="BaseResultMapVo" type="com.bingsin.crm.vo.user.UserVo">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -14,6 +15,7 @@
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="state" jdbcType="CHAR" property="state" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
@@ -76,7 +78,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account, pwd, user_name, state
+    id, account, pwd, user_name, state, time
   </sql>
   <select id="selectByExample" parameterType="com.bingsin.crm.po.UserExample" resultMap="BaseResultMap">
     select
@@ -92,7 +94,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapVo">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
@@ -110,9 +112,11 @@
   </delete>
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bingsin.crm.po.User">
     insert into user (id, account, pwd, 
-      user_name, state)
+      user_name, state, time
+      )
     values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR}, #{state,jdbcType=CHAR})
+      #{userName,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{time,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bingsin.crm.po.User">
     insert into user
@@ -132,6 +136,9 @@
       <if test="state != null">
         state,
       </if>
+      <if test="time != null">
+        time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +155,9 @@
       </if>
       <if test="state != null">
         #{state,jdbcType=CHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -175,6 +185,9 @@
       <if test="record.state != null">
         state = #{record.state,jdbcType=CHAR},
       </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -186,7 +199,8 @@
       account = #{record.account,jdbcType=VARCHAR},
       pwd = #{record.pwd,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=CHAR}
+      state = #{record.state,jdbcType=CHAR},
+      time = #{record.time,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -206,6 +220,9 @@
       <if test="state != null">
         state = #{state,jdbcType=CHAR},
       </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -214,7 +231,8 @@
     set account = #{account,jdbcType=VARCHAR},
       pwd = #{pwd,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
-      state = #{state,jdbcType=CHAR}
+      state = #{state,jdbcType=CHAR},
+      time = #{time,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
@@ -231,6 +249,7 @@
 `user`.pwd,
 `user`.user_name,
 `user`.state,
+`user`.time,
 role.id role_id,
 role.role_name
 FROM

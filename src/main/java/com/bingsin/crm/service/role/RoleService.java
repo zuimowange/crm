@@ -25,4 +25,6 @@ public interface RoleService {
 
 	void ableRole(RoleDto dto);
 
+	boolean findRoleName(RoleDto dto);
+
 }

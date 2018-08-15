@@ -1,8 +1,7 @@
 package com.bingsin.crm.service.role.impl;
 
-import java.util.List;
+import java.util.Date;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +58,7 @@ public class RoleServiceImpl implements RoleService{
 	@Override
 	public void add(RoleDto dto) {
 		dto.getPo().setState("0");
+		dto.getPo().setTime(new Date());
 		roleMapper.insert(dto.getPo());
 	}
 
@@ -73,6 +73,15 @@ public class RoleServiceImpl implements RoleService{
 	@Override
 	public void ableRole(RoleDto dto) {
 		dto.setData(roleMapper.ableRole());
+	}
+
+	@Override
+	public boolean findRoleName(RoleDto dto) {
+		Role role = roleMapper.findRoleName(dto.getPo());
+		if(role == null) {
+			return true;
+		}
+		return false;
 	}
 
 }

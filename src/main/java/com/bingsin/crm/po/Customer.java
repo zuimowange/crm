@@ -1,5 +1,7 @@
 package com.bingsin.crm.po;
 
+import java.util.Date;
+
 public class Customer {
     private Integer id;
 
@@ -11,7 +13,11 @@ public class Customer {
 
     private String email;
 
+    private String wechat;
+
     private Integer referee;
+
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -53,11 +59,27 @@ public class Customer {
         this.email = email == null ? null : email.trim();
     }
 
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat == null ? null : wechat.trim();
+    }
+
     public Integer getReferee() {
         return referee;
     }
 
     public void setReferee(Integer referee) {
         this.referee = referee;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

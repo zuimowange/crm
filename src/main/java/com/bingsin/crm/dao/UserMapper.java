@@ -6,7 +6,6 @@ import com.bingsin.crm.po.Role;
 import com.bingsin.crm.po.User;
 import com.bingsin.crm.po.UserExample;
 import com.bingsin.crm.vo.user.UserVo;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -36,14 +35,6 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    /**
-     * 
-    * @Title: login 
-    * @Description: TODO(登录方法) 
-    * @param    
-    * @return UserDto    
-    * @throws
-     */
 	UserVo login(User po);
 
 	List<UserVo> list(UserDto dto);
