@@ -61,4 +61,6 @@ public interface RoleMapper {
 	* @throws
 	 */
 	List<Role> allRole();
+
+	List<Role> ableRole();
 }

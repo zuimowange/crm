@@ -193,4 +193,9 @@
       state = #{state,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  <select id="selectId" parameterType="com.bingsin.crm.po.UserRole" resultMap="BaseResultMap">
+    select id from user_role where user_id = #{userId} limit 1
+  </select>
 </mapper>

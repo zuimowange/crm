@@ -121,4 +121,17 @@ public class RoleRest {
 		}
 		return dto;
 	}
+	
+	@RequestMapping("ableRole")
+	public RoleDto ableRole(RoleDto dto) {
+		try {
+			roleService.ableRole(dto);
+			dto.setCode(MsgCode.REQUEST_SUCCESS);
+			dto.setMsg("请求成功");
+		} catch (Exception e) {
+			dto.setCode(MsgCode.SERVER_ERROR);
+			dto.setMsg("服务器错误");
+		}
+		return dto;
+	}
 }

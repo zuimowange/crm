@@ -237,6 +237,7 @@ FROM
 `user`
 LEFT JOIN user_role ON user_role.user_id = `user`.id
 LEFT JOIN role ON user_role.role_id = role.id
+order by id desc
 limit #{start},#{limit}
   </select>
   <update id="updateStateById" parameterType="Integer">

@@ -38,18 +38,23 @@ public class UserRest {
 		try {
 			userService.login(dto);
 			if(dto.getPo() != null) {
-				
-				//生成token
-				Date iat = new Date();
-				Date exp = dateUtil.changeDate(iat, Calendar.DATE, 10);				
-				Token token = new Token(dto.getPo().getId(),dateUtil.dateToStamp(iat),dateUtil.dateToStamp(exp));
-				JSONObject map = JSONObject.fromObject(token);
-				//token加密
-				String tokens = base64Util.base64Encoder(map.toString());
-				dto.setToken(tokens);
-				cookieUtil.setCookie(response, "token", tokens, 3600*24*new Integer(propertiesUtil.getCookieLife()));
-				dto.setCode(MsgCode.REQUEST_SUCCESS);
-				dto.setMsg("登录成功");
+				if(dto.getPo().getState().equals("0")) {
+					//生成token
+					Date iat = new Date();
+					Date exp = dateUtil.changeDate(iat, Calendar.DATE, 10);				
+					Token token = new Token(dto.getPo().getId(),dateUtil.dateToStamp(iat));
+					JSONObject map = JSONObject.fromObject(token);
+					//token加密
+					String tokens = base64Util.base64Encoder(map.toString());
+					//dto.setToken(tokens);
+					cookieUtil.setCookie(response, "token", tokens, 3600*24*new Integer(propertiesUtil.getCookieLife()));
+					dto.setCode(MsgCode.REQUEST_SUCCESS);
+					dto.setMsg("登录成功");
+				}
+				else {
+					dto.setCode(MsgCode.REQUEST_FAIL);
+					dto.setMsg("该账号已冻结");
+				}
 			}
 			else {
 				dto.setCode(MsgCode.REQUEST_FAIL);

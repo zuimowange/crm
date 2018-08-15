@@ -23,4 +23,6 @@ public interface RoleService {
 
 	void allRole(RoleDto dto);
 
+	void ableRole(RoleDto dto);
+
 }

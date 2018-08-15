@@ -11,6 +11,7 @@ import com.bingsin.crm.po.User;
 import com.bingsin.crm.po.UserExample;
 import com.bingsin.crm.po.UserRole;
 import com.bingsin.crm.service.user.UserService;
+import com.bingsin.crm.utils.Base64Util;
 import com.bingsin.crm.vo.user.UserVo;
 
 @Service
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired UserMapper userMapper;
 	@Autowired UserRoleMapper userRoleMapper;
+	@Autowired Base64Util base64Util;
 	
 	/**
 	 * 登录方法
@@ -76,6 +78,9 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void add(UserDto dto) {
 		dto.getPo().setState("0");
+		String pwd = base64Util.base64Decoder(dto.getPo().getPwd());
+		System.out.println("**********************");
+		System.out.println(pwd);
 		userMapper.insert(dto.getPo());
 		UserRole userRole = new UserRole();
 		userRole.setUserId(dto.getPo().getId());

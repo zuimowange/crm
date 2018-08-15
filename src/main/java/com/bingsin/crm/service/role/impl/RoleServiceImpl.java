@@ -70,4 +70,9 @@ public class RoleServiceImpl implements RoleService{
 		dto.setData(roleMapper.allRole());
 	}
 
+	@Override
+	public void ableRole(RoleDto dto) {
+		dto.setData(roleMapper.ableRole());
+	}
+
 }

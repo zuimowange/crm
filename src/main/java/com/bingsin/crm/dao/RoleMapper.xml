@@ -203,4 +203,7 @@
   <select id="allRole" parameterType="com.bingsin.crm.dto.role.RoleDto" resultMap="BaseResultMap">
   	select id,role_name,state from role
   </select>
+  <select id="ableRole" parameterType="com.bingsin.crm.dto.role.RoleDto" resultMap="BaseResultMap">
+  	select id,role_name,state from role where state = '0'
+  </select>
 </mapper>

@@ -94,7 +94,7 @@
 			var roleList = [{id:0,roleName:'管理员',state:0}, {id:1,roleName:'普通用户',state:1}];
 			$.ajax({
 				type:"post",
-				url:"roleRest/allRole",
+				url:"roleRest/ableRole",
 				success:function(data){
 					roleList = data.data;
 					console.log(roleList)
@@ -102,9 +102,9 @@
 			});
 		</script>
 		<script type="text/html" id="role">
-			<select name="roleSelect" dataId="{{d.roleId}}" lay-filter="selectDemo">
+			<select name="roleSelect" userId="{{d.id}}" lay-filter="selectDemo">
 				{{# layui.each(roleList, function(index, item){ }}
-				<option {{ (d.roleId==item.id)? 'selected' : ''  }} >{{ item.roleName }}</option>
+				<option {{ (d.roleId==item.id)? 'selected' : ''  }} value={{ item.id}}>{{ item.roleName }}</option>
 				{{# }); }}
 			</select>
 		</script>
@@ -123,6 +123,30 @@
 			table.on('checkbox(demo)', function(obj) {
 				console.log(obj)
 			});
+		//修改角色
+        form.on('select(selectDemo)', function (obj) {
+        	var roleId = obj.value;
+        	var userId = obj.elem.getAttribute('userId');
+        	$.ajax({
+        		type:"post",
+        		url:"/userRoleRest/update",
+        		data:{
+        			"po.userId":userId,
+        			"po.roleId":roleId
+        		},
+        		success:function(data){
+        			if(data.code == 0) {
+						layer.msg(data.msg, {
+							icon: 6
+						}, function() {});
+					} else {
+						layer.msg(data.msg, {
+							icon: 5
+						}, function() {});
+					}
+        		}
+        	});
+        });
 
 			//监听工具条
 			table.on('tool(demo)', function(obj) {
@@ -317,6 +341,7 @@
 												icon: 5
 											}, function() {});
 										}
+										table.reload('idTest');
 									}
 								});
 							},
