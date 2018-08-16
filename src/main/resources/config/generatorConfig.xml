@@ -54,5 +54,6 @@
 		<table tableName="user"></table>
 		<table tableName="user_role"></table>
 		<table tableName="work_list"></table> -->
+		<table tableName="customer"></table>
 	</context>
 </generatorConfiguration>

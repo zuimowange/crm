@@ -266,4 +266,8 @@ limit #{start},#{limit}
   <select id="findAccount" parameterType="com.bingsin.crm.vo.user.UserVo" resultMap="BaseResultMap">
     select account from user where account = #{account} limit 1
   </select>
+  
+  <select id="allUser" parameterType="com.bingsin.crm.dto.user.UserDto" resultMap="BaseResultMapVo">
+  	select id,user_name,state from user
+  </select>
 </mapper>

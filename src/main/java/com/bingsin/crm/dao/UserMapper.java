@@ -44,4 +44,6 @@ public interface UserMapper {
 	void add(UserVo po);
 
 	User findAccount(UserVo po);
+
+	List<UserVo> allUser();
 }

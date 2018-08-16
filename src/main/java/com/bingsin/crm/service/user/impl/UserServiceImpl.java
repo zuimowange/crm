@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 import com.bingsin.crm.dao.UserMapper;
 import com.bingsin.crm.dao.UserRoleMapper;
 import com.bingsin.crm.dto.user.UserDto;
-import com.bingsin.crm.po.RoleExample;
 import com.bingsin.crm.po.User;
 import com.bingsin.crm.po.UserExample;
 import com.bingsin.crm.po.UserRole;
 import com.bingsin.crm.service.user.UserService;
 import com.bingsin.crm.utils.Base64Util;
-import com.bingsin.crm.vo.user.UserVo;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -98,6 +96,11 @@ public class UserServiceImpl implements UserService{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void allUser(UserDto dto) {
+		dto.setData(userMapper.allUser());
 	}
 
 }

@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>账号列表</title>
+		<title>角色列表</title>
 		<base th:href="${baseHref}" href="http://127.0.0.1:8020/resources/static/" />
 		<link rel="stylesheet" href="layui/css/layui.css" />
 		<style>
@@ -11,78 +11,110 @@
 				margin: 0;
 				padding: 0;
 			}
-			
-			.layui-layer-content {
-				overflow: visible;
-				/*background: rgb(57,61,73);*/
-			}
-			
 			.layui-anim-upbit dd {
 				color: black;
 			}
-			
-			.layui-form-selectup dl {
-				height: 160px;
-			}
-			/* 防止下拉框的下拉列表被隐藏---必须设置--- */
-        .layui-table-cell {
-            overflow: visible !important;
-        }
-        /* 设置下拉框的高度与表格单元相同 */
-        .layui-input, .layui-select, .layui-textarea{
-            height: 30px !important;
-        }
 		</style>
-		<script type="text/javascript" src="js/pub/jquery-1.8.3.min.js" ></script>
 	</head>
 
 	<body>
 		<script type="text/html" id="addDemo">
 			<div style="padding: 20px; background-color: #393D49; color: #fff; font-weight: 300;">
-				<form class="layui-form" action="" lay-filter="example">
+				<form class="layui-form" action="">
 					<div class="layui-form-item">
-						<label class="layui-form-label">账号</label>
-						<div class="layui-input-block">
-							<input type="text" name="account" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-						</div>
+					    <label class="layui-form-label">客户姓名</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="customerName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">姓名</label>
-						<div class="layui-input-block">
-							<input type="text" name="userName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-						</div>
+					    <label class="layui-form-label">性别</label>
+					    <div class="layui-input-block">
+					      	<input type="radio" name="sex" value="男" title="男">
+      						<input type="radio" name="sex" value="女" title="女">
+					    </div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">默认密码</label>
-						<div class="layui-input-block">
-							<input type="text" name="pwd" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-						</div>
+					    <label class="layui-form-label">电话号码</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="telephone" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">职务</label>
-						<div class="layui-input-block">
-							<select name="roleId"></select>
-						</div>
+					    <label class="layui-form-label">qq</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="qq" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
 					</div>
+					<div class="layui-form-item">
+					    <label class="layui-form-label">email</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="email" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <label class="layui-form-label">微信</label>
+					    <div class="layui-input-block">
+					      <input type="text" name="wechat" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <label class="layui-form-label">介绍人</label>
+					    <div class="layui-input-block">
+					    	<select name="referee"></select>
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <label class="layui-form-label">备注</label>
+					    <div class="layui-input-block">
+					      <textarea name="remarks" placeholder="请输入内容" class="layui-textarea"></textarea>
+					    </div>
+					</div>
+					
 				</form>
 			</div>
 		</script>
-
+		<form class="layui-form">
+			<div class="demoTable">
+			      <div class="layui-input-inline">
+				      <select name="searchKey">
+				        <option value="">请选择查询方式</option>
+				        <option value="id">ID</option>
+				        <option value="customer_name">客户姓名</option>
+				        <option value="sex">性别</option>
+				        <option value="telephone">电话</option>
+				        <option value="qq">qq</option>
+				        <option value="email">email</option>
+				        <option value="wechat">微信号</option>
+				        <option value="referee">推荐人</option>
+				        <option value="input_person">录入人</option>
+				      </select>
+				    </div>
+				<div class="layui-inline">
+				    <input class="layui-input" name="id" id="searchValue" autocomplete="off">
+				</div>
+				<button class="layui-btn" data-type="reload">搜索</button>
+			</div>
+		</form>
 		<div class="layui-btn-group demoTable">
 			<button class="layui-btn" data-type="batchUpdate">批量修改</button>
 			<button class="layui-btn" data-type="batchDelete">批量删除</button>
 			<button class="layui-btn" data-type="add">新增</button>
 		</div>
-		<table class="layui-table" lay-data="{ height: 'full-63',cellMinWidth:100,url:'/userRest/list', page:true, id:'idTest'}" lay-filter="demo">
+		<table class="layui-table" lay-data="{ height: 'full-63',cellMinWidth:80,url:'/customerRest/list', page:true, id:'idTest'}" lay-filter="demo">
 			<thead>
-				<tr height="80px">
+				<tr>
 					<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
 					<th lay-data="{field:'id', sort: true, fixed: true}">ID</th>
-					<th lay-data="{field:'account'}">账号</th>
-					<th lay-data="{field:'userName',edit: 'text'}">用户名</th>
-					<th lay-data="{field:'roleName',templet:'#role', width: 110,unresize: true}">角色</th>
-					<th lay-data="{field:'time',width: 110}">创建时间</th>
-					<th lay-data="{field:'state',templet: '#checkboxTpl', unresize: true}">生效状态</th>
+					<th lay-data="{field:'customerName',edit: 'text'}">客户姓名</th>
+					<th lay-data="{field:'sex',templet: '#checkboxTpl', unresize: true}">性别</th>
+					<th lay-data="{field:'telephone',edit: 'text'}">电话号码</th>
+					<th lay-data="{field:'qq',edit: 'text'}">qq</th>
+					<th lay-data="{field:'email',edit: 'text'}">email</th>
+					<th lay-data="{field:'wechat',edit: 'text'}">微信号</th>
+					<th lay-data="{field:'referee',edit: 'text'}">推荐人</th>
+					<th lay-data="{field:'inputPerson',edit: 'text'}">录入人</th>
+					<th lay-data="{field:'time'}">录入时间</th>
 					<th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}">操作</th>
 				</tr>
 			</thead>
@@ -91,31 +123,14 @@
 		<script type="text/html" id="checkboxTpl">
 			<input type="checkbox" name="lock" value="{{d.state}}" tabindex={{d.id}} title="生效" lay-filter="lockDemo" {{ d.state==0 ? 'checked' : '' }}>
 		</script>
-		<script>
-			var roleList = [{id:0,roleName:'管理员',state:0}, {id:1,roleName:'普通用户',state:1}];
-			$.ajax({
-				type:"post",
-				url:"roleRest/ableRole",
-				success:function(data){
-					roleList = data.data;
-					console.log(roleList)
-				}
-			});
-		</script>
-		<script type="text/html" id="role">
-			<select name="roleSelect" userId="{{d.id}}" lay-filter="selectDemo">
-				{{# layui.each(roleList, function(index, item){ }}
-				<option {{ (d.roleId==item.id)? 'selected' : ''  }} value={{ item.id}}>{{ item.roleName }}</option>
-				{{# }); }}
-			</select>
-		</script>
 		<script type="text/html" id="barDemo">
 			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
 	</body>
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script type="text/javascript" src="js/pub/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="js/pub/base64.js"></script>
+	<script type="text/javascript" src="js/pub/cookie.js" ></script>
+	<script type="text/javascript" src="js/pub/base64.js" ></script>
 	<script>
 		layui.use('table', function() {
 			var table = layui.table,
@@ -124,31 +139,6 @@
 			table.on('checkbox(demo)', function(obj) {
 				console.log(obj)
 			});
-		//修改角色
-        form.on('select(selectDemo)', function (obj) {
-        	var roleId = obj.value;
-        	var userId = obj.elem.getAttribute('userId');
-        	$.ajax({
-        		type:"post",
-        		url:"/userRoleRest/update",
-        		data:{
-        			"po.userId":userId,
-        			"po.roleId":roleId
-        		},
-        		success:function(data){
-        			if(data.code == 0) {
-						layer.msg(data.msg, {
-							icon: 6
-						}, function() {});
-					} else {
-						layer.msg(data.msg, {
-							icon: 5
-						}, function() {});
-					}
-        		}
-        	});
-        });
-
 			//监听工具条
 			table.on('tool(demo)', function(obj) {
 				var data = obj.data;
@@ -156,7 +146,7 @@
 					layer.confirm('确定删除该条数据吗？', function(index) {
 						$.ajax({
 							type: "post",
-							url: "/userRest/deleteById",
+							url: "/roleRest/deleteById",
 							data: {
 								"po.id": data.id
 							},
@@ -180,16 +170,16 @@
 			//监听单元格编辑
 			table.on('edit(demo)', function(obj) {
 				var value = obj.value //得到修改后的值
-					,
-					data = obj.data //得到所在行所有键值
-					,
-					field = obj.field; //得到字段
+					,data = obj.data //得到所在行所有键值
+					,field = obj.field; //得到字段
 				$.ajax({
 					type: "post",
-					url: "/userRest/updateById",
+					url: "/roleRest/updateById",
 					data: {
 						"po.id": data.id,
-						"po.userName": data.userName
+						"po.roleName": data.roleName,
+						"po.alias": data.alias,
+						"po.state": data.state
 					}
 				});
 			});
@@ -198,7 +188,7 @@
 			form.on('checkbox(lockDemo)', function(obj) {
 				$.ajax({
 					type: "post",
-					url: "/userRest/updateStateById",
+					url: "/roleRest/updateStateById",
 					data: {
 						"po.id": $(this).attr("tabindex")
 					},
@@ -216,17 +206,28 @@
 				});
 			});
 
-			var $ = layui.$,
-				active = {
+			var $ = layui.$,active = {
+					//表格重载
+					reload: function(){
+				      var searchKey = $("select[name='searchKey']").val();
+				      var searchValue = $('#searchValue').val();
+				     console.log(searchKey)
+				      //执行重载
+				      table.reload('idTest', {
+				       where: {
+				       		searchKey:searchKey,
+				            searchValue: '%'+searchValue+'%'
+				        }
+				      });
+				   },
+					
 					//批量修改
 					batchUpdate: function() {
 						layer.confirm('确定修改吗？', function(index) {
 							var checkStatus = table.checkStatus('idTest'),
 								data = checkStatus.data;
-							if(data.length == 0) {
-								layer.msg("请选中数据", {
-									icon: 5
-								});
+							if(data.length == 0){
+								layer.msg("请选中数据", {icon: 5});
 								return false;
 							}
 							var ids;
@@ -239,7 +240,7 @@
 							}
 							$.ajax({
 								type: "post",
-								url: "/userRest/updateStateByIds",
+								url: "/roleRest/updateStateByIds",
 								traditional: true,
 								data: {
 									"ids": ids
@@ -265,10 +266,8 @@
 						layer.confirm('确定删除吗？', function(index) {
 							var checkStatus = table.checkStatus('idTest'),
 								data = checkStatus.data;
-							if(data.length == 0) {
-								layer.msg("请选中数据", {
-									icon: 5
-								});
+							if(data.length == 0){
+								layer.msg("请选中数据", {icon: 5});
 								return false;
 							}
 							var ids;
@@ -281,7 +280,7 @@
 							}
 							$.ajax({
 								type: "post",
-								url: "/userRest/deleteByIds",
+								url: "/roleRest/deleteByIds",
 								traditional: true,
 								data: {
 									"ids": ids
@@ -306,7 +305,7 @@
 					add: function() {
 						var addIndex = layer.open({
 							type: 1,
-							title: "新增账号", //不显示标题栏
+							title: "新增用户", //不显示标题栏
 							closeBtn: false,
 							area: '400px;',
 							shade: 0.8,
@@ -315,22 +314,37 @@
 							btnAlign: 'c',
 							moveType: 1, //拖拽模式，0或者1
 							content: $("#addDemo").html(),
-							yes: function() {
-								var account = $("input[name='account']").val();
-								var userName = $("input[name='userName']").val();
-								var pwd = Base.encode($("input[name='pwd']").val());
-								var roleId = parseInt($("select[name='roleId']").val());
-
+							yes:function(){
+								var customerName = $("input[name='customerName']").val();
+								var telephone = $("input[name='telephone']").val();
+								var qq = $("input[name='qq']").val();
+								var email = $("input[name='email']").val();
+								var wechat = $("input[name='wechat']").val();
+								var referee = parseInt($("select[name='referee']").val());
+								var sex = $("input[name='sex']:checked").val();
+								var remarks = $("textarea[name='remarks']").val();
+								
+								var token = CookieUtil.get('token');
+								token = Base.decode(token);
+								token = JSON.parse(token)
+								
+								var inputPerson = token.userId;
+								
 								$.ajax({
-									type: "post",
-									url: "/userRest/add",
-									data: {
-										"po.account": account,
-										"po.userName": userName,
-										"po.pwd": pwd,
-										"po.roleId": roleId
+									type:"post",
+									url:"/customerRest/add",
+									data:{
+										"po.customerName":customerName,
+										"po.telephone":telephone,
+										"po.qq":qq,
+										"po.email":email,
+										"po.wechat":wechat,
+										"po.referee":referee,
+										"po.sex":sex,
+										"po.remarks":remarks,
+										"po.inputPerson":inputPerson
 									},
-									success: function(data) {
+									success:function(data){
 										if(data.code == 0) {
 											layer.close(addIndex);
 											layer.msg(data.msg, {
@@ -346,21 +360,21 @@
 									}
 								});
 							},
-							success: function() {
+							success:function(){
 								$.ajax({
 									type: "post",
-									url: "/roleRest/allRole",
+									url: "/userRest/allUser",
 									success: function(data) {
 										if(data.code == 0) {
 											var myOption = '<option value=""></option>';
 											for(var i = 0; i < data.data.length; i++) {
 												if(data.data[i].state == 0) {
-													myOption += '<option value="' + data.data[i].id + '">' + data.data[i].roleName + '</option>';
+													myOption += '<option value="' + data.data[i].id + '">' + data.data[i].userName + '</option>';
 												} else {
-													myOption += '<option disabled value="' + data.data[i].id + '">' + data.data[i].roleName + '</option>';
+													myOption += '<option disabled value="' + data.data[i].id + '">' + data.data[i].userName + '</option>';
 												}
 											}
-											$("select[name='roleId']").html(myOption);
+											$("select[name='referee']").html(myOption);
 										}
 										form.render()
 									}
@@ -383,7 +397,7 @@
 				var type = $(this).data('type');
 				active[type] ? active[type].call(this) : '';
 			});
-
+			
 		});
 	</script>
 

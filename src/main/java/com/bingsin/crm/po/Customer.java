@@ -19,6 +19,12 @@ public class Customer {
 
     private Date time;
 
+    private String sex;
+
+    private Integer inputPerson;
+
+    private String remarks;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +87,29 @@ public class Customer {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public Integer getInputPerson() {
+        return inputPerson;
+    }
+
+    public void setInputPerson(Integer inputPerson) {
+        this.inputPerson = inputPerson;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 }
