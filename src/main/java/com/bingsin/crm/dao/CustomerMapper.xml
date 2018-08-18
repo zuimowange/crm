@@ -332,9 +332,44 @@ customer.*,
 FROM
 customer
 INNER JOIN `user` ON customer.input_person = `user`.id
-<if test="searchValue != null">
+<!-- <if test="searchValue != null">
     where #{searchKey} like #{searchValue}
-</if>
+</if> -->
+<where>
+	  <if test="po.id != null">
+        id like #{po.id}
+      </if>
+	  <if test="po.customerName != null">
+        and customer_name like #{customerName}
+      </if>
+      <if test="po.telephone != null">
+        and telephone like #{po.telephone}
+      </if>
+      <if test="po.qq != null">
+        and qq like #{po.qq}
+      </if>
+      <if test="po.email != null">
+        and email like #{po.email}
+      </if>
+      <if test="po.wechat != null">
+        and wechat like #{po.wechat}
+      </if>
+      <if test="po.referee != null">
+        and referee like #{po.referee}
+      </if>
+      <if test="po.time != null">
+        and time like #{po.time}
+      </if>
+      <if test="po.sex != null">
+        and sex like #{po.sex}
+      </if>
+      <if test="po.inputPerson != null">
+        and input_person like #{po.inputPerson}
+      </if>
+      <if test="po.remarks != null">
+        and remarks like #{po.remarks}
+      </if>
+</where>
 order by id desc
 limit #{start},#{limit}
   </select>

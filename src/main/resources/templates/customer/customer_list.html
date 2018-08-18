@@ -74,7 +74,7 @@
 				</form>
 			</div>
 		</script>
-		<form class="layui-form">
+		<!--<form class="layui-form">-->
 			<div class="demoTable">
 			      <div class="layui-input-inline">
 				      <select name="searchKey">
@@ -95,7 +95,7 @@
 				</div>
 				<button class="layui-btn" data-type="reload">搜索</button>
 			</div>
-		</form>
+		<!--</form>-->
 		<div class="layui-btn-group demoTable">
 			<button class="layui-btn" data-type="batchUpdate">批量修改</button>
 			<button class="layui-btn" data-type="batchDelete">批量删除</button>
@@ -211,13 +211,11 @@
 					reload: function(){
 				      var searchKey = $("select[name='searchKey']").val();
 				      var searchValue = $('#searchValue').val();
-				     console.log(searchKey)
+				     var po={};
+				     po['po.'+searchKey] = '%'+searchValue+'%';
 				      //执行重载
 				      table.reload('idTest', {
-				       where: {
-				       		searchKey:searchKey,
-				            searchValue: '%'+searchValue+'%'
-				        }
+				       where: po
 				      });
 				   },
 					
